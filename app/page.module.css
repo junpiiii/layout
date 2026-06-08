@@ -1,0 +1,67 @@
+.name {
+    font-size: 60px;
+    font-weight: 600;
+    text-decoration: underline;}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 360px;
+}
+
+.canvas {
+  width: 360px;
+  height: 640px;
+  margin-top: 20px;
+
+  border: 1px solid black;
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.layout {
+  width: 320px;
+  padding: 16px;
+}
+
+.titleBox {
+  height: 60px;
+
+  background-color: #4d73bd;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 20px;
+
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.photoFrame {
+  height: 180px;
+
+  overflow: hidden;
+
+  background-color: #4d73bd;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
