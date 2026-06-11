@@ -57,7 +57,7 @@ export default function Home() {
           黄
         </button>
 
-        <button onClick={() => setBackground("/bg-green.jpg")}>
+        <button onClick={() => setBackground("/bg-green.png")}>
           緑
         </button>
 
