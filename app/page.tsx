@@ -5,26 +5,15 @@ import { useState, useRef } from "react";
 import html2canvas from "html2canvas";
 
 export default function Home() {
-  const [background, setBackground] = useState("");
+  const [background, setBackground] = useState("/bg-yellow.png");
   const [photos, setPhotos] = useState<string[]>([]);
-  const [title, setTitle] = useState("");
 
   const captureRef = useRef<HTMLDivElement>(null);
-
-  const handleBackgroundUpload = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-
-    if (file) {
-      setBackground(URL.createObjectURL(file));
-    }
-  };
 
   const saveImage = async () => {
     if (!captureRef.current) return;
 
-    const canvas = await html2canvas(captureRef.current);
+    const canvas = await html2canvas(captureRef.current,{scale:4,});
 
     const link = document.createElement("a");
 
@@ -39,62 +28,64 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <h1 className={styles.name}>SO SO SO MUCH</h1>
+  <main className={styles.container}>
+    <h1 className={styles.name}>SO SO SO MUCH</h1>
 
-      <div className={styles.top}>
-        <input
-          type="text"
-          placeholder="タイトルを入力"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+    <div className={styles.top}>
+      <div className={styles.topButton}>  
+        <label className={styles.uploadButton}>
+          +PHOTO
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            hidden
+            onChange={(e) => {
+              const files = Array.from(e.target.files || []);
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleBackgroundUpload}
-        />
+              setPhotos(
+                files
+                  .slice(0, 4)
+                  .map((file) => URL.createObjectURL(file))
+              );
+            }}
+          />
+        </label>
 
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={(e) => {
-            const files = Array.from(e.target.files || []);
-
-            setPhotos(
-              files
-                .slice(0, 4)
-                .map((file) => URL.createObjectURL(file))
-            );
-          }}
-        />
-
-        <button onClick={saveImage}>
-          画像を保存
+      <div className={styles.backgroundButton}>
+        <button onClick={() => setBackground("/bg-yellow.png")}>
+          黄
         </button>
 
-        <button onClick={resetPhotos}>
-          写真をリセット
+        <button onClick={() => setBackground("/bg-green.jpg")}>
+          緑
+        </button>
+
+        <button onClick={() => setBackground("/bg-purple.jpg")}>
+          紫
         </button>
       </div>
+    </div>
 
-      <div
-        ref={captureRef}
-        className={styles.canvas}
-        style={{
-          backgroundImage: `url(${background})`,
-        }}
-      >
+    <div className={styles.saveButton}>    
+      <button onClick={saveImage}>
+          画像を保存
+      </button>
+
+      <button onClick={resetPhotos}>
+          写真をリセット
+      </button>
+    </div>
+  </div>
+
+    <div
+      ref={captureRef}
+      className={styles.canvas}
+      style={{backgroundImage: `url(${background})`,}}>
         <div className={styles.layout}>
-          <div className={styles.titleBox}>
-            {title || "タイトル"}
-          </div>
-
           <div className={styles.photoGrid}>
             {[0, 1, 2, 3].map((index) => (
-              <div
+              <div 
                 key={index}
                 className={styles.photoFrame}
               >
@@ -105,11 +96,12 @@ export default function Home() {
                     className={styles.photo}
                   />
                 )}
-              </div>
-            ))}
-          </div>
-        </div>
+            </div>
+           ))}
+         </div>
       </div>
+      
+    </div>
     </main>
   );
 }
