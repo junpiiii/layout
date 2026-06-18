@@ -61,7 +61,7 @@ export default function Home() {
           緑
         </button>
 
-        <button onClick={() => setBackground("/bg-purple.jpg")}>
+        <button onClick={() => setBackground("/bg-pp.png")}>
           紫
         </button>
       </div>
