@@ -162,6 +162,23 @@
   box-shadow: 0 4px 10px rgba(255,133,181,.3);
 }
 
+.copyCard {
+  width: 360px;
+  background: white;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.copyInput {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px solid #ffd3e5;
+  border-radius: 12px;
+  font-size: 18px;
+  text-align: center;
+}
+
 .canvas {
   position: relative;
 
