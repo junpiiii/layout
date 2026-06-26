@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import html2canvas from "html2canvas";
 
 export default function Home() {
-  const [background, setBackground] = useState("/bg-yellow.png");
+  const [background, setBackground] = useState("/FG.png");
   const [photos, setPhotos] = useState<string[]>([]);
   const [imageNumber, setImageNumber] = useState(1000);
   const [inputNumber, setInputNumber] = useState("1000");
@@ -48,8 +48,7 @@ export default function Home() {
         navigator.canShare({ files: [file] })
       ) {
         await navigator.share({
-          files: [file],
-          title: fileName,
+        files: [file],
         });
       } else {
         const link = document.createElement("a");
@@ -128,15 +127,23 @@ export default function Home() {
 
           <div className={styles.backgroundButton}>
             <button onClick={() => setBackground("/FG.png")}>
-              💛
+              📖
             </button>
 
             <button onClick={() => setBackground("/momi.png")}>
               💚
             </button>
 
-            <button onClick={() => setBackground("/bg-pp.png")}>
-              💜
+            <button onClick={() => setBackground("/blue.jpg")}>
+              💙
+            </button>
+
+            <button onClick={() => setBackground("/red.jpg")}>
+              💖
+            </button>
+
+            <button onClick={() => setBackground("/yellow.jpg")}>
+              💛
             </button>
           </div>
         </div>
@@ -154,31 +161,23 @@ export default function Home() {
 
       <div
         ref={captureRef}
-        className={styles.canvas}
+        className={`${styles.canvas} ${
+        background === "/momi.png" ? styles.momi : ""}`}
         style={{
           backgroundImage: `url(${background})`,
         }}
       >
         <div className={styles.layout}>
-          <div className={styles.photoGrid}>
-            {[0, 1, 2, 3].map((index) => (
-              <div
-                key={index}
-                className={styles.photoFrame}
-              >
-                {photos[index] && (
-                  <img
-                    src={photos[index]}
-                    alt=""
-                    className={styles.photo}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-
+          
           <div className={styles.printNumber}>
             No.{imageNumber}
+          </div>
+
+          <div className={styles.photoGrid}>
+             {[0, 1, 2, 3].map((index) => (
+              <div key={index} className={`${styles.photoFrame} ${styles[`photo${index}`]}`}>
+                {photos[index] && (<img src={photos[index]} alt="" className={styles.photo} />)}
+              </div>))}
           </div>
 
         </div>
